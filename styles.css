@@ -1,17 +1,114 @@
 :root {
+  color-scheme: light;
   font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-  color: #23332f;
-  background: #f5f8f6;
+  color: var(--text);
+  background: var(--page);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-optical-sizing: auto;
   font-weight: 400;
+  --page: #f5f8f6;
+  --page-glow: #e6f4ec;
+  --surface: #fff;
+  --surface-input: #fcfdfc;
+  --text: #23332f;
+  --text-strong: #243b31;
+  --text-body: #33463e;
+  --text-secondary: #475750;
+  --text-muted: #82918b;
+  --text-subtle: #99a59f;
   --green: #237b63;
   --green-dark: #1b634f;
-  --muted: #82918b;
-  --line: #e8eeea;
+  --brand-border: #d5e9dd;
+  --brand-surface: #eaf5ee;
+  --card-border: #edf1ee;
+  --field-border: #e4ebe6;
+  --placeholder: #b0bbb5;
+  --focus-border: #79b99d;
+  --focus-outline: #a8d7bf;
+  --focus-ring: rgb(72 151 116 / 12%);
+  --card-shadow: 0 8px 28px rgb(34 65 51 / 5%);
+  --divider: #eff2f0;
+  --privacy: #95a19b;
+  --count-border: #e4ece7;
+  --count-text: #708078;
+  --record-date: #67776f;
+  --record-date-subtle: #9aa59f;
+  --measurement: #33463e;
+  --measurement-strong: #243b31;
+  --measurement-label: #96a29c;
+  --tag-surface: #eff6f1;
+  --tag-text: #4a7861;
+  --missed-surface: #fbf3e8;
+  --missed-text: #a27335;
+  --taken-surface: #eef3fb;
+  --taken-text: #58729a;
+  --notes-border: #f0f3f1;
+  --notes-text: #78877f;
+  --empty-border: #dfe8e2;
+  --empty-surface: rgb(255 255 255 / 65%);
+  --empty-text: #84928b;
+  --empty-icon: #a4b8ac;
+  --footer-text: #9aa69f;
+  --error: #b44747;
+  --toggle-track: #dbe6df;
+  --toggle-active: #237b63;
+  --toggle-knob: #fff;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #111a17;
+  --page-glow: #1d342a;
+  --surface: #1d2924;
+  --surface-input: #17221d;
+  --text: #e6efe9;
+  --text-strong: #eff7f1;
+  --text-body: #d5e2da;
+  --text-secondary: #c6d3cc;
+  --text-muted: #adbbb3;
+  --text-subtle: #9baca2;
+  --green: #80d5ae;
+  --green-dark: #1b634f;
+  --brand-border: #345445;
+  --brand-surface: #21392e;
+  --card-border: #34423a;
+  --field-border: #3a4b42;
+  --placeholder: #87988e;
+  --focus-border: #76c9a1;
+  --focus-outline: #76c9a1;
+  --focus-ring: rgb(94 196 146 / 20%);
+  --card-shadow: 0 8px 28px rgb(0 0 0 / 24%);
+  --divider: #35443b;
+  --privacy: #a6b3ab;
+  --count-border: #3b4d43;
+  --count-text: #bac9c0;
+  --record-date: #bdcbc3;
+  --record-date-subtle: #97aaa0;
+  --measurement: #d0ddd5;
+  --measurement-strong: #eff7f1;
+  --measurement-label: #9cafa4;
+  --tag-surface: #283e33;
+  --tag-text: #a3d4b8;
+  --missed-surface: #493a26;
+  --missed-text: #edca8d;
+  --taken-surface: #29394b;
+  --taken-text: #b2c7ed;
+  --notes-border: #35443b;
+  --notes-text: #aebcb4;
+  --empty-border: #43544a;
+  --empty-surface: rgb(29 41 36 / 65%);
+  --empty-text: #b3c1b8;
+  --empty-icon: #91b6a0;
+  --footer-text: #9eada4;
+  --error: #f29a9a;
+  --toggle-track: #4a5b51;
+  --toggle-active: #237b63;
+  --toggle-knob: #e7f2eb;
+  --button-bg: #237b63;
+  --button-hover: #1b634f;
 }
 
 * {
@@ -19,13 +116,12 @@
 }
 
 body {
-  min-width: 320px;
   min-height: 100vh;
   margin: 0;
   padding: 52px 24px 36px;
   background:
-    radial-gradient(ellipse at 50% -15%, #e6f4ec 0, transparent 48%),
-    #f5f8f6;
+    radial-gradient(ellipse at 50% -15%, var(--page-glow) 0, transparent 48%),
+    var(--page);
 }
 
 button,
@@ -42,8 +138,27 @@ select {
 .page-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 18px;
   margin: 0 0 30px 4px;
+}
+
+.brand-lockup {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 18px;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 11px;
+  user-select: none;
 }
 
 .brand-mark {
@@ -51,9 +166,9 @@ select {
   width: 54px;
   height: 54px;
   place-items: center;
-  border: 1px solid #d5e9dd;
+  border: 1px solid var(--brand-border);
   border-radius: 17px;
-  background: #eaf5ee;
+  background: var(--brand-surface);
   color: var(--green);
   font-size: 30px;
   font-weight: 500;
@@ -82,16 +197,16 @@ h1 {
 
 .page-description {
   margin: 0;
-  color: var(--muted);
+  color: var(--text-muted);
   font-size: 13px;
 }
 
 .entry-card {
   padding: 28px 30px 24px;
-  border: 1px solid #edf1ee;
+  border: 1px solid var(--card-border);
   border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 8px 28px rgb(34 65 51 / 5%);
+  background: var(--surface);
+  box-shadow: var(--card-shadow);
 }
 
 .section-heading,
@@ -137,7 +252,7 @@ h2 {
 }
 
 .field-label {
-  color: #475750;
+  color: var(--text-secondary);
   font-size: 12px;
   font-weight: 600;
 }
@@ -145,7 +260,7 @@ h2 {
 .unit,
 .optional {
   margin-left: 4px;
-  color: #99a59f;
+  color: var(--text-subtle);
   font-size: 10px;
   font-weight: 400;
 }
@@ -155,28 +270,67 @@ select {
   width: 100%;
   height: 44px;
   padding: 0 13px;
-  border: 1px solid #e4ebe6;
+  border: 1px solid var(--field-border);
   border-radius: 8px;
   outline: none;
-  background: #fcfdfc;
-  color: #263a32;
+  background: var(--surface-input);
+  color: var(--text);
   font-size: 13px;
   transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
+.theme-toggle input {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  padding: 2px;
+  border: 1px solid var(--field-border);
+  border-radius: 999px;
+  appearance: none;
+  background: var(--toggle-track);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.theme-toggle input::before {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--toggle-knob);
+  content: "";
+  transition: transform 150ms ease;
+}
+
+.theme-toggle input:checked {
+  border-color: var(--toggle-active);
+  background: var(--toggle-active);
+}
+
+.theme-toggle input:checked::before {
+  transform: translateX(18px);
+}
+
+.theme-toggle input:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
 input::placeholder {
-  color: #b0bbb5;
+  color: var(--placeholder);
 }
 
 input:focus,
 select:focus {
-  border-color: #79b99d;
-  box-shadow: 0 0 0 3px rgb(72 151 116 / 12%);
+  border-color: var(--focus-border);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .form-message {
   margin: 14px 0 0;
-  color: #b44747;
+  color: var(--error);
   font-size: 12px;
 }
 
@@ -187,12 +341,12 @@ select:focus {
   gap: 16px;
   margin-top: 23px;
   padding-top: 18px;
-  border-top: 1px solid #eff2f0;
+  border-top: 1px solid var(--divider);
 }
 
 .privacy-note {
   margin: 0;
-  color: #95a19b;
+  color: var(--privacy);
   font-size: 11px;
 }
 
@@ -205,7 +359,7 @@ select:focus {
   padding: 0 18px;
   border: 0;
   border-radius: 8px;
-  background: var(--green);
+  background: var(--button-bg, var(--green));
   color: #fff;
   cursor: pointer;
   font-size: 13px;
@@ -215,11 +369,11 @@ select:focus {
 
 .submit-button:hover {
   transform: translateY(-1px);
-  background: var(--green-dark);
+  background: var(--button-hover, var(--green-dark));
 }
 
 .submit-button:focus-visible {
-  outline: 3px solid #a8d7bf;
+  outline: 3px solid var(--focus-outline);
   outline-offset: 3px;
 }
 
@@ -238,10 +392,10 @@ select:focus {
 
 .record-count {
   padding: 6px 11px;
-  border: 1px solid #e4ece7;
+  border: 1px solid var(--count-border);
   border-radius: 20px;
-  background: #fff;
-  color: #708078;
+  background: var(--surface);
+  color: var(--count-text);
   font-size: 11px;
 }
 
@@ -256,25 +410,25 @@ select:focus {
   align-items: center;
   gap: 14px;
   padding: 17px 19px;
-  border: 1px solid #edf1ee;
+  border: 1px solid var(--card-border);
   border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 3px 12px rgb(34 65 51 / 3%);
+  background: var(--surface);
+  box-shadow: 0 3px 12px rgb(0 0 0 / 8%);
 }
 
 .record-date {
-  color: #67776f;
+  color: var(--record-date);
   font-size: 11px;
   line-height: 1.6;
 }
 
 .record-date span {
   display: block;
-  color: #9aa59f;
+  color: var(--record-date-subtle);
 }
 
 .record-measurement {
-  color: #33463e;
+  color: var(--measurement);
   font-size: 12px;
   white-space: nowrap;
 }
@@ -282,13 +436,13 @@ select:focus {
 .record-measurement strong {
   display: block;
   margin-bottom: 3px;
-  color: #243b31;
+  color: var(--measurement-strong);
   font-size: 17px;
   font-weight: 600;
 }
 
 .record-measurement small {
-  color: #96a29c;
+  color: var(--measurement-label);
   font-size: 10px;
 }
 
@@ -296,38 +450,38 @@ select:focus {
   justify-self: start;
   padding: 6px 9px;
   border-radius: 20px;
-  background: #eff6f1;
-  color: #4a7861;
+  background: var(--tag-surface);
+  color: var(--tag-text);
   font-size: 10px;
   white-space: nowrap;
 }
 
 .medication-tag[data-status="未服藥"] {
-  background: #fbf3e8;
-  color: #a27335;
+  background: var(--missed-surface);
+  color: var(--missed-text);
 }
 
 .medication-tag[data-status="已服藥"] {
-  background: #eef3fb;
-  color: #58729a;
+  background: var(--taken-surface);
+  color: var(--taken-text);
 }
 
 .record-notes {
   grid-column: 1 / -1;
   margin: -4px 0 0;
   padding-top: 10px;
-  border-top: 1px solid #f0f3f1;
-  color: #78877f;
+  border-top: 1px solid var(--notes-border);
+  color: var(--notes-text);
   font-size: 11px;
   overflow-wrap: anywhere;
 }
 
 .empty-state {
   padding: 34px 20px;
-  border: 1px dashed #dfe8e2;
+  border: 1px dashed var(--empty-border);
   border-radius: 12px;
-  background: rgb(255 255 255 / 65%);
-  color: #84928b;
+  background: var(--empty-surface);
+  color: var(--empty-text);
   text-align: center;
   font-size: 13px;
 }
@@ -335,13 +489,13 @@ select:focus {
 .empty-state span {
   display: block;
   margin-bottom: 8px;
-  color: #a4b8ac;
+  color: var(--empty-icon);
   font-size: 25px;
 }
 
 .page-footer {
   margin-top: 28px;
-  color: #9aa69f;
+  color: var(--footer-text);
   text-align: center;
   font-size: 10px;
 }
@@ -352,8 +506,13 @@ select:focus {
   }
 
   .page-header {
+    flex-wrap: wrap;
     gap: 13px;
     margin-bottom: 23px;
+  }
+
+  .brand-lockup {
+    gap: 13px;
   }
 
   .brand-mark {
@@ -390,7 +549,7 @@ select:focus {
   .record-date {
     grid-column: 1 / -1;
     padding-bottom: 10px;
-    border-bottom: 1px solid #f0f3f1;
+    border-bottom: 1px solid var(--notes-border);
   }
 
   .medication-tag {

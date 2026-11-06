@@ -7,6 +7,13 @@
       name="description"
       content="簡單記錄血壓、脈搏、服藥狀態與備註。"
     />
+    <script>
+      try {
+        if (localStorage.getItem("blood-pressure-theme") === "dark") {
+          document.documentElement.dataset.theme = "dark";
+        }
+      } catch {}
+    </script>
     <title>日常血壓紀錄</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
@@ -14,12 +21,19 @@
   <body>
     <main class="app-shell">
       <header class="page-header">
-        <div class="brand-mark" aria-hidden="true">＋</div>
-        <div>
-          <p class="eyebrow">PERSONAL HEALTH JOURNAL</p>
-          <h1>日常血壓紀錄</h1>
-          <p class="page-description">每天留意一點，為健康留下安心紀錄。</p>
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">＋</div>
+          <div>
+            <p class="eyebrow">PERSONAL HEALTH JOURNAL</p>
+            <h1>日常血壓紀錄</h1>
+            <p class="page-description">每天留意一點，為健康留下安心紀錄。</p>
+          </div>
         </div>
+        <label class="theme-toggle">
+          <span>淺色</span>
+          <input id="theme-toggle" type="checkbox" role="switch" aria-label="深色主題" />
+          <span>深色</span>
+        </label>
       </header>
 
       <section class="entry-card" aria-labelledby="form-title">

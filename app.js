@@ -1,9 +1,40 @@
 const STORAGE_KEY = "blood-pressure-records";
+const THEME_STORAGE_KEY = "blood-pressure-theme";
 
 const form = document.querySelector("#record-form");
 const recordsList = document.querySelector("#records-list");
 const recordCount = document.querySelector("#record-count");
 const formMessage = document.querySelector("#form-message");
+const themeToggle = document.querySelector("#theme-toggle");
+
+function loadTheme() {
+  try {
+    return localStorage.getItem(THEME_STORAGE_KEY) === "dark" ? "dark" : "light";
+  } catch (error) {
+    console.warn("無法讀取主題偏好：", error);
+    return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  }
+}
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themeToggle.checked = theme === "dark";
+}
+
+function saveTheme(theme) {
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+  } catch (error) {
+    console.warn("無法儲存主題偏好：", error);
+  }
+}
+
+applyTheme(loadTheme());
+themeToggle.addEventListener("change", () => {
+  const theme = themeToggle.checked ? "dark" : "light";
+  applyTheme(theme);
+  saveTheme(theme);
+});
 
 function showMessage(message) {
   formMessage.textContent = message;
